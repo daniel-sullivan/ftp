@@ -389,8 +389,8 @@ func (c *ServerConn) Login(user, password string) error {
 		err = c.setUTF8()
 	}
 
-	// If using implicit TLS, make data connections also use TLS
-	if c.options.tlsConfig != nil {
+	// If using explicit TLS, make data connections also use TLS
+	if c.options.tlsConfig != nil && c.options.explicitTLS {
 		if _, _, err = c.cmd(StatusCommandOK, "PBSZ 0"); err != nil {
 			return err
 		}
